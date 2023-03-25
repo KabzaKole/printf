@@ -1,5 +1,6 @@
 #include "main.h"
 
+/****************** PRINT POINTER ******************/
 /**
  * print_pointer - Prints the value of a pointer variable
  * @types: List a of arguments
@@ -14,20 +15,19 @@ int print_pointer(va_list types, char buffer[],
 	int flags, int width, int precision, int size)
 {
 	char extra_c = 0, padd = ' ';
-	int ind = BUFF_SIZE - 2, length = 2, padd_start = 1;
-/* length=2, for '0x' */
+	int ind = BUFF_SIZE - 2, length = 2, padd_start = 1; /* length=2, for '0x' */
 	unsigned long num_addrs;
 	char map_to[] = "0123456789abcdef";
 	void *addrs = va_arg(types, void *);
 
-	UNUSED(width); /* width is not used in this function*/
-	UNUSED(size); /* size is not used in this function */
+	UNUSED(width);
+	UNUSED(size);
 
 	if (addrs == NULL)
 		return (write(1, "(nil)", 5));
 
-	buffer[BUFF_SIZE - 1] = '\0'; /* Null terminate buffer array */
-	UNUSED(precision); /* precision is not used in this function */
+	buffer[BUFF_SIZE - 1] = '\0';
+	UNUSED(precision);
 
 	num_addrs = (unsigned long)addrs;
 
@@ -38,7 +38,6 @@ int print_pointer(va_list types, char buffer[],
 		length++;
 	}
 
-/* Determine padding character based on active flags */
 	if ((flags & F_ZERO) && !(flags & F_MINUS))
 		padd = '0';
 	if (flags & F_PLUS)
@@ -52,6 +51,8 @@ int print_pointer(va_list types, char buffer[],
 	return (write_pointer(buffer, ind, length,
 		width, flags, padd, extra_c, padd_start));
 }
+
+/************************* PRINT NON PRINTABLE *************************/
 /**
  * print_non_printable - Prints ascii codes in hexa of non printable chars
  * @types: Lista of arguments
@@ -91,6 +92,7 @@ int print_non_printable(va_list types, char buffer[],
 	return (write(1, buffer, i + offset));
 }
 
+/************************* PRINT REVERSE *************************/
 /**
  * print_reverse - Prints reverse string.
  * @types: Lista of arguments
@@ -133,7 +135,7 @@ int print_reverse(va_list types, char buffer[],
 	}
 	return (count);
 }
-
+/************************* PRINT A STRING IN ROT13 *************************/
 /**
  * print_rot13string - Print a string in rot13.
  * @types: Lista of arguments
@@ -183,4 +185,4 @@ int print_rot13string(va_list types, char buffer[],
 		}
 	}
 	return (count);
-}
+} 
