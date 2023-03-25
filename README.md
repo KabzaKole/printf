@@ -16,6 +16,10 @@
     - You don’t have to handle field width
     - You don’t have to handle precision
     - You don’t have to handle the length modifiers
+### The Solution:
+The _printf function takes a variable number of arguments with the first argument being a format string, similar to the standard printf function. It iterates through the format string character by character, and if a character is not a % character, it adds it to a buffer. If the buffer is full, it is printed to the standard output and the buffer is cleared. If the character is a % character, it reads the flags, width, precision, and size modifiers, and passes them to another function named handle_print along with the variable arguments. The handle_print function prints the formatted output to the buffer.
+
+Finally, after iterating through the format string, any remaining content in the buffer is printed to the standard output, and the function returns the total number of characters printed.
 ## 1. Education is when you read the fine print. Experience is what you get if you don't
     - Handle the following conversion specifiers:
         - d
